@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .busImg {
+            height: 71px;
+            width: 77px;
+        }
+        .lout {
+            position: absolute;
+            top: 9px;
+            right: 21px;
+        }
+        .db-cont {
+            margin-top: 50px;
+        }
+        .card-btn {
+            border: 1px solid lightslategrey;
+            border-radius: 9px;
+            box-shadow: 8px 7px 14px darkgray;
+            text-align: center;
+            padding: 20px;
+        }
+        .card-btn img {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="bg-primary text-white text-center py-3 position-relative">
+    <img th:src="@{/Images/bus.png}" alt="bus" class="busImg position-absolute" style="left: 22px; top: 7px;">
+    <h1>Blue Buzz.....</h1>
+    <div sec:authorize="isAuthenticated()" class="lout">
+        <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+
+<div class="container text-center">
+    <h2 class="my-4">Admin Dashboard</h2>
+    <div class="row db-cont justify-content-center">
+        <div class="col-md-4 mb-4">
+            <div class="card-btn p-4">
+                <a th:href="@{/viewBusData}">
+                    <img th:src="@{/Images/plus.png}" alt="Add Bus" width="78px" height="70px">
+                </a>
+                <h3>ADD BUS</h3>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card-btn p-4">
+                <a th:href="@{/viewAllBookings}">
+                    <img th:src="@{/Images/search-list.png}" alt="Booking List" width="78px" height="70px">
+                </a>
+                <h3>BOOKING LIST</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        .lout{
+            position: absolute;
+            top: 9px;
+            right: 21px;
+        }
+
+        .vb{
+          position: absolute;
+          top: 9px;
+          right: 127px;
+         }
+
+        .busImg{
+        position: absolute;
+        left: 22px;
+        top: 7px;
+        height: 71px;
+        width: 77px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-primary text-white text-center py-3">
+    <img th:src="@{/Images/bus.png}" alt="bus" class="busImg">
+    <h1>Blue Buzz.....</h1>
+</div>
+<div sec:authorize="isAuthenticated" class="lout">
+    <a th:href="@{/logout}" class="btn btn-danger mt-3">
+        Logout
+    </a>
+</div>
+<div class="vb ">
+    <a th:href="@{/viewBookings}" class="btn btn-danger mt-3">
+        MyBookings
+    </a>
+</div>
+<div class="container mt-3">
+
+    <div class="mt-5">
+        <h2>Welcome to Blue Buzz</h2>
+    </div>
+
+    <div class="mt-5">
+        <h3>Search Buses</h3>
+        <form th:action="@{/bookBus}" method="get">
+            <div class="form-group">
+                <label for="from">From</label>
+                <input type="text" class="form-control" id="from" name="from" th:value="${reservation.from}">
+            </div>
+            <div class="form-group">
+                <label for="to">To</label>
+                <input type="text" class="form-control" id="to" name="to" th:value="${reservation.to}">
+            </div>
+            <div class="form-group">
+                <label for="filterDate">Date</label>
+                <input type="date" class="form-control" id="filterDate" name="filterDate" th:value="${reservation.filterDate}">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <div class="mt-5" th:if="${bus != null}">
+        <h3>Available Buses</h3>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Bus Id</th>
+                <th>Bus Name</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="busData : ${bus}">
+                <td th:text="${busData.busId}">Bus Name</td>
+                <td th:text="${busData.busName}">Bus Name</td>
+                <td th:text="${busData.fromDestination}">From</td>
+                <td th:text="${busData.toDestination}">To</td>
+                <td th:text="${busData.filterDate}">Date</td>
+                <td th:text="${busData.time}">Time</td>
+                <td th:text="${busData.price}">Price</td>
+                <td><a href="#" class="btn btn-primary btn-sm" th:href="@{'/seatBooking?price=' + ${busData.price}+ '&busId=' + ${busData.busId}}">View Seats</a></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script th:src="@{https://code.jquery.com/jquery-3.5.1.slim.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js}"></script>
+<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+</body>
+</html>

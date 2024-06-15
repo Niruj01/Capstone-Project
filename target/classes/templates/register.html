@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{../css/styles.css}">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="alert alert-info" th:if="${message != null}">
+        [[${message}]]
+    </div>
+    <h2 class="mb-4">Registration Form</h2>
+    <form
+            th:action="@{/registration}"
+            method="post"
+            role="form"
+            th:object="${user}"
+    >
+        <div class="form-group">
+            <label for="name">name:</label>
+            <input th:field="*{name}" type="text" class="form-control" id="name" name="name" placeholder="Enter your Name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input th:field="*{email}" type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input th:field="*{password}" type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button><br><br>
+        <div class="text-center mt-3">
+            <span>Already have an account?</span> <a th:href="@{/login}">logIn</a>
+        </div>
+    </form>
+</div><br>
+<a href="/login" class="btn btn-primary mt-3">Back to login</a><br><br>
+
+
+
+<script th:src="@{https://code.jquery.com/jquery-3.5.1.slim.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js}"></script>
+<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+</body>
+</html>

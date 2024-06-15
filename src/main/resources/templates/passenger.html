@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Details</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #007bff;
+        }
+        .navbar {
+            background-color: #3e28e3 !important;
+        }
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+        .my-card {
+            box-shadow: 0px 0px 10px 1px rgb(0, 28, 128);
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background-color: #007bff;
+        }
+        .footer {
+            background-color: #3e28e3;
+            color: #fff;
+            padding: 20px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container mt-3">
+        <div sec:authorize="isAuthenticated">
+            <a th:href="@{/logout}" class="btn btn-danger mt-3">
+                Logout
+            </a>
+        </div>
+
+        <div class="mt-5">
+            <h2>Welcome, <span th:text="${user.username}">User</span>!</h2>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card my-card">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Passenger Details</h3>
+
+                    <!-- Bootstrap form -->
+                    <form th:action="@{/newPassenger}" th:object="${passenger}" method="POST">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input th:field="*{name}" type="text" class="form-control" placeholder="Enter full name">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label">Gender</label>
+                                <select th:field="*{gender}" class="form-control">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label">Age</label>
+                                <input th:field="*{age}" type="number" min="0" max="120" class="form-control" placeholder="Enter your age">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input th:field="*{userEmail}" type="email" class="form-control" placeholder="Enter Email">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input th:field="*{mobileNo}" type="text" class="form-control" placeholder="Enter mobile number">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="form-label">Seats Selected </label>
+                            <span th:classappend="${selectedSeats eq 'null' ? 'text-danger' : 'text-success'}"
+                                  th:style="${selectedSeats eq 'null' ? 'background-color: yellow;' : ''}"
+                                  th:text="${selectedSeats}" ></span>
+                            <br>
+                            <br>
+                            <label class="form-label" >Total Amount </label>
+                            <span th:classappend="${totalFare eq 0 ? 'text-danger' : 'text-success'}"
+                                  th:style="${totalFare eq 0 ? 'background-color: yellow;' : ''}"
+                                  th:text="${totalFare}" ></span>
+                        </div>
+
+                        <!-- Hidden Fields from Seat Booking Page -->
+                        <input type="hidden" id="selectedSeats" name="selectedSeats" th:value="${selectedSeats}">
+                        <input type="hidden" id="busId" name="busId" th:value="${busId}">
+                        <input type="hidden" id="totalFare" name="totalFare" th:value="${totalFare}">
+                        <input type="hidden" id="seatCount" name="seatCount" th:value="${seatCount}">
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-submit btn-block">Proceed to Pay</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Include Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

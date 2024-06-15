@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Bookings</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>User: <span th:text="${user.get().name}"></span></h1>
+
+    <h2>Booking Details</h2>
+    <div th:if="${bookings.size() > 0}">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Passenger Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Seat</th>
+                <th>Total Fare</th>
+                <th>Bus Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="booking : ${bookings}">
+                <td th:text="${booking.name}">Passenger Name</td>
+                <td th:text="${booking.age}">Age</td>
+                <td th:text="${booking.gender}">Gender</td>
+                <td th:text="${booking.selectedSeat}">Seat</td>
+                <td th:text="${booking.totalFare}">Total Fare</td>
+                <td>
+                    <span th:text="${booking.busData.busName}">Bus Name</span>,
+                    <span th:text="${booking.busData.fromDestination}">From</span> to
+                    <span th:text="${booking.busData.toDestination}">To</span>,
+                    <span th:text="${booking.busData.time}">Departure</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${bookings.size() == 0}" class="alert alert-warning" role="alert">
+        <p>No bookings found for this user.</p>
+    </div>
+
+    <a th:href="@{/user-page}" class="btn btn-secondary mt-4">Back to home</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

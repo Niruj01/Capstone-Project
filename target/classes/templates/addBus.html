@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Medication</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4">Add Bus Details</h1>
+    <form action="/addBusData" method="post" th:object="${BusData}" class="needs-validation" novalidate>
+
+
+        <div class="form-group">
+            <label for="filterDate">Date:</label>
+            <input type="date" class="form-control" id="filterDate" name="filterDate" required placeholder="Enter Date" />
+            <div class="invalid-feedback">
+                Please enter a valid Date.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="BusName">Bus Name:</label>
+            <input type="text" class="form-control" id="BusName" name="BusName" required placeholder="Enter Bus Name" />
+            <div class="invalid-feedback">
+                Please enter a valid Bus Name.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="fromDestination">From</label>
+            <input type="text"  class="form-control" id="fromDestination"  name="fromDestination" placeholder="Enter From" required>
+            <div class="invalid-feedback">
+                Please provide a valid From.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="toDestination">To</label>
+            <input type="text"  class="form-control" id="toDestination" name="toDestination" placeholder="Enter To" required>
+            <div class="invalid-feedback">
+                Please provide a valid To.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text"  class="form-control" id="price" name="price" placeholder="Enter Price" required>
+            <div class="invalid-feedback">
+                Please provide a valid Price.
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="time">Time</label>
+            <input type="text" class="form-control" id="time" name="time" placeholder="Enter Time" required>
+            <div class="invalid-feedback">
+                Please provide a valid Time.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="totalSeats">Total Seats</label>
+            <input  type="number" min="0" class="form-control" id="totalSeats" name="totalSeats" placeholder="Enter seats" required>
+            <div class="invalid-feedback">
+                Please provide a valid seats.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="availableSeats">AvailableSeats</label>
+            <input  type="number" min="0" class="form-control" id="availableSeats" name="availableSeats" placeholder="Enter availableSeats" required>
+            <div class="invalid-feedback">
+                Please provide a valid seats.
+            </div>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form><br><br>
+
+    <a th:href="@{/viewBusData}" class="btn btn-secondary">Back to Bus List</a>
+</div>
+<script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

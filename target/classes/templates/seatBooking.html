@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Seat Booking</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #007bff !important;
+        }
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+        .seat {
+            background-color: #d4edda;
+            border: 1px solid #28a745;
+            color: #333;
+            cursor: pointer;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .seat.selected {
+            background-color: #28a745;
+            color: #fff;
+            transform: scale(1.1);
+        }
+        .seat-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .aisle {
+            width: 50px;
+        }
+        #seat-map {
+            margin-bottom: 20px;
+        }
+        #total-fare {
+            font-weight: bold;
+            color: #28a745;
+        }
+        #book-btn {
+            background-color: #f15b5b;
+            border-color: #563d7c;
+        }
+        #book-btn:hover {
+            background-color: #3e2877;
+            border-color: #3e2877;
+        }
+        .upper-deck-label, .lower-deck-label {
+            font-weight: bold;
+            color: #563d7c;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container mt-3">
+        <div sec:authorize="isAuthenticated">
+            <a th:href="@{/logout}" class="btn btn-danger mt-3">
+                Logout
+            </a>
+        </div>
+
+        <div class="mt-5">
+            <h2>Welcome, <span th:text="${user.username}">User</span>!</h2>
+        </div>
+    </div>
+</nav>
+
+<br>
+
+<div class="container" th:controller="BusController">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">Seat Selection</h2>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/bookSeats}" method="post">
+                <div id="seat-map">
+                    <p class="upper-deck-label text-center">Upper Deck</p>
+                    <div class="seat-row">
+                        <div th:each="seatId: ${#numbers.sequence(1, 2)}"
+                             class="seat"
+                             th:id="'seat-' + ${seatId}"
+                             th:data-seat-id="${seatId}"
+                             th:text="'U' + ${seatId}"
+                             th:unless="${passedSeats.contains(seatId)}"
+                             onclick="selectSeat(this)">
+                        </div>
+                        <div class="aisle"></div>
+                        <div th:each="seatId: ${#numbers.sequence(3, 4)}"
+                             class="seat"
+                             th:id="'seat-' + ${seatId}"
+                             th:data-seat-id="${seatId}"
+                             th:text="'U' + ${seatId}"
+                             th:unless="${passedSeats.contains(seatId)}"
+                             onclick="selectSeat(this)">
+                        </div>
+                    </div>
+                    <div class="seat-row">
+                        <div th:each="seatId: ${#numbers.sequence(5, 6)}"
+                             class="seat"
+                             th:id="'seat-' + ${seatId}"
+                             th:data-seat-id="${seatId}"
+                             th:text="'U' + ${seatId}"
+                             th:unless="${passedSeats.contains(seatId)}"
+                             onclick="selectSeat(this)">
+                        </div>
+                        <div class="aisle"></div>
+                        <div th:each="seatId: ${#numbers.sequence(7, 8)}"
+                             class="seat"
+                             th:id="'seat-' + ${seatId}"
+                             th:data-seat-id="${seatId}"
+                             th:text="'U' + ${seatId}"
+                             th:unless="${passedSeats.contains(seatId)}"
+                             onclick="selectSeat(this)">
+                        </div>
+                    </div>
+                    <p class="lower-deck-label text-center">Lower Deck</p>
+                    <div class="seat-row">
+                        <div th:each="seatId: ${#numbers.sequence(11, 12)}"
+                             class="seat"
+                             th:id="'seat-' + ${seatId}"
+                             th:data-seat-id="${seatId}"
+                             th:text="'L' + ${seatId}"
+                             th:unless="${passedSeats.contains(seatId)}"
+                             onclick="selectSeat(this)">
+                        </div>
+                        <div class="aisle"></div>
+                        <div th:each="seatId: ${#numbers.sequence(13, 14)}"
+                             class="seat"
+                             th:id="'seat-' + ${seatId}"
+                             th:data-seat-id="${seatId}"
+                             th:text="'L' + ${seatId}"
+                             th:unless="${passedSeats.contains(seatId)}"
+                             onclick="selectSeat(this)">
+                        </div>
+                    </div>
+                    <div class="seat-row">
+                        <div th:each="seatId: ${#numbers.sequence(15, 16)}"
+                             class="seat"
+                             th:id="'seat-' + ${seatId}"
+                             th:data-seat-id="${seatId}"
+                             th:text="'L' + ${seatId}"
+                             th:unless="${passedSeats.contains(seatId)}"
+                             onclick="selectSeat(this)">
+                        </div>
+                        <div class="aisle"></div>
+                        <div th:each="seatId: ${#numbers.sequence(17, 18)}"
+                             class="seat"
+                             th:id="'seat-' + ${seatId}"
+                             th:data-seat-id="${seatId}"
+                             th:text="'L' + ${seatId}"
+                             th:unless="${passedSeats.contains(seatId)}"
+                             onclick="selectSeat(this)">
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="selectedSeats" id="selectedSeats" value="">
+                <input type="hidden" name="totalFare" id="totalFare" value="">
+                <input type="hidden" name="busId" id="busId" value="">
+                <input type="hidden" name="seatCount" id="seatCount" value="">
+
+                <div class="text-center mb-4">
+                    <p>Total Selected: <span id="selected-count">0</span></p>
+                    <p>Selected Seats: <span id="selected-seats"></span></p>
+                    <p>Total Fare: <span id="total-fare">0</span></p>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" id="book-btn" class="btn btn-lg btn-success">Book Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    var params = new URLSearchParams(window.location.search);
+    var price = parseFloat(params.get('price'));
+    var busId = params.get('busId');
+
+    $('#busId').val(busId);
+
+    function updateSelectedSeats() {
+        var selectedSeats = [];
+        $('.seat.selected').each(function() {
+            var seatId = $(this).data('seat-id');
+            var seatLabel = generateSeatLabel(seatId);
+            selectedSeats.push(seatLabel);
+        });
+        $('#selectedSeats').val(selectedSeats.join(','));
+        $('#selected-seats').text(selectedSeats.join(', '));
+        var seatcount = selectedSeats.length;
+        $('#seatCount').val(seatcount);
+        $('#selected-count').text(selectedSeats.length);
+        var totalFare = selectedSeats.length * price;
+        $('#total-fare').text(totalFare.toFixed(2));
+        $('#totalFare').val(totalFare);
+    }
+
+    function generateSeatLabel(seatId) {
+        return seatId <= 10 ? 'U' + seatId : 'L' + seatId;
+    }
+
+    function selectSeat(seat) {
+        $(seat).toggleClass('selected');
+        updateSelectedSeats();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('form').addEventListener('submit', function(event) {
+        var selectedSeats = document.querySelectorAll('.seat.selected');
+        if (selectedSeats.length === 0) {
+            event.preventDefault(); // Prevent form submission
+            alert('Please select at least one seat before booking.');
+        }
+    });
+});
+</script>
+</body>
+</html>

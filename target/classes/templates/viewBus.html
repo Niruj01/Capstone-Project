@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>View Bus</title>
+</head>
+<body>
+<div class="container mt-4 emp-Container">
+    <div class="nav bg-light p-3 mb-3 rounded">
+        <p class="h4 mb-0">Bus Details</p>
+    </div>
+    <div class="list mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3>Bus List</h3>
+            <a th:href="@{/addBusData}" class="btn btn-primary">Add Bus</a>
+        </div>
+    </div>
+    <div class="table-responsive tableList">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Bus Id</th>
+                <th>BusName</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Price</th>
+                <th>Time</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="busdata : ${bus}">
+                <td th:text="${busdata.busId}"></td>
+                <td th:text="${busdata.busName}"></td>
+                <td th:text="${busdata.fromDestination}"></td>
+                <td th:text="${busdata.toDestination}"></td>
+                <td th:text="${busdata.price}"></td>
+                <td th:text="${busdata.time}"></td>
+
+                <td>
+                    <a th:href="@{/updateBus/{busId}(busId=${busdata.busId})}" class="btn btn-warning btn-sm mr-1">Edit</a>
+                    <a th:href="@{/deleteBus/{busId}(busId=${busdata.busId})}" class="btn btn-danger btn-sm mr-1">Remove</a>
+                </td>
+            </tr>
+            </tbody>
+        </table><br><br>
+        <a th:href="@{/admin-page}" class="btn btn-secondary">Back to home</a>
+    </div>
+</div>
+
+</body>
+</html>

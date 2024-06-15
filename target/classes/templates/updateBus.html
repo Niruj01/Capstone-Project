@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Medication</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2 class="mb-4">Update Medicine</h2>
+
+    <form action="#" th:action="@{/updateBus/{busId}(busId=${bus.busId})}" th:object="${bus}"
+          method="POST" class="needs-validation" novalidate>
+
+        <!-- Add hidden form field to handle update -->
+        <input type="hidden" th:field="*{busId}" />
+
+        <div class="form-group">
+            <label for="BusName">Bus Name</label>
+            <input type="text" th:field="*{BusName}" class="form-control" id="BusName" placeholder="Enter Bus Name" required>
+            <div class="invalid-feedback">
+                Please provide a valid Bus Name.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="fromDestination">From</label>
+            <input type="text" th:field="*{fromDestination}" class="form-control" id="fromDestination" placeholder="Enter From" required>
+            <div class="invalid-feedback">
+                Please provide a valid From.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="toDestination">To</label>
+            <input type="text" th:field="*{toDestination}" class="form-control" id="toDestination" placeholder="Enter To" required>
+            <div class="invalid-feedback">
+                Please provide a valid To.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" th:field="*{price}" class="form-control" id="price" placeholder="Enter Price" required>
+            <div class="invalid-feedback">
+                Please provide a valid Price.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="time">Time</label>
+            <input type="text" th:field="*{time}" class="form-control" id="time" placeholder="Enter Time" required>
+            <div class="invalid-feedback">
+                Please provide a valid Time.
+            </div>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary">Update Bus</button>
+    </form>
+
+    <hr>
+
+    <a th:href="@{/viewBusData}" class="btn btn-secondary">Back to Bus List</a>
+</div>
+</body>
+</html>
