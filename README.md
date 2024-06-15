@@ -12,13 +12,13 @@ This guide will help developers understand the project structure, dependencies, 
 **Technologies Used**
 
 
-Java
-Spring Boot
-Spring Security
-Thymeleaf
-iTextPDF for PDF generation
-Lombok
-Jakarta Servlet API
+Java,
+ Spring Boot,
+ Spring Security,
+ Thymeleaf,
+ iTextPDF for PDF generation,
+ Lombok,
+ Jakarta Servlet API
 
 
 
